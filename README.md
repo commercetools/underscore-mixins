@@ -9,11 +9,12 @@
 A collection of methods to be used as `underscore` mixins
 
 ## Table of Contents
-* [_.deepClone](#_deepclone)
-* [_.prettify](#_prettify)
-* [_.percentage](#_percentage)
-* [_.stringifyQuery](#_stringifyquery)
-* [_.parseQuery](#_parsequery)
+* [Documentation](#documentation)
+  * [_.deepClone](#_deepclone)
+  * [_.prettify](#_prettify)
+  * [_.percentage](#_percentage)
+  * [_.stringifyQuery](#_stringifyquery)
+  * [_.parseQuery](#_parsequery)
 * [Contributing](#contributing)
 * [Releasing](#releasing)
 * [License](#license)

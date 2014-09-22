@@ -6,7 +6,7 @@ before_script:
 notifications:
   hipchat:
     rooms:
-      - secure: S5Dg2UevKjAeVDHq6sg1TIanhPGw9KQC3ZYKE5bg4PAN4gJU+pl8C1DQVBWXGNmT4w4E7K46+0Mx3KYw489021FyWqkbUlnN8MKYqKy9r0gI7Cx9S50TZuEyXjOQxDzvdRv2Y5d04CH01/MTJ7wRWb0jFeYkmId2xevFyZn7Xug=
+      - secure: FMZA1rLmB7zmfg+8shfyEo2CgsRlWEZNbNOK5oaZRlrRv/6Uz1v21r7T5TzXvA+nxX+30bn8UFLVKHRXVjr6Zs1sGqMcpz5YoSVXDZ/ryFeoS6LKkEnvxbt/lfdD4kRDNUEjgGuRUiI6M0Sk+vg/w34WWwlC3tKC8y7sIMm8vH8=
     template:
       - '%{repository}#%{build_number} (%{author}): %{message} (<a href="%{build_url}">Details</a> / <a href="%{compare_url}">Compare</a>)'
     format: html
