@@ -67,3 +67,25 @@ module.exports =
       memo[key] = value
       memo
     , {}
+
+  ###*
+   * Transform a given list in a new nested list of single list elements (batches)
+   * given max size.
+   * Useful if you need to process some elements on a list, but not all together.
+   * @param  {Array} list The original list
+   * @param  {Int} size The size of the nested lists to group the elements to
+   * @return {Array} A new list with nested batch lists of given size
+   * @throws {Error} If size is not defined
+   * @example
+   *   list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+   *   console.log _.batchList(list, 3)
+   *   # => [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0]]
+  ###
+  batchList: (list, size) ->
+    throw new Error 'List batch size is required' unless size
+    _batch = (tickList, acc = []) ->
+      return acc if _.isEmpty tickList
+      acc.push _.head tickList, size
+      tail = _.tail tickList, size
+      _batch tail, acc
+    _batch(list)

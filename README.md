@@ -15,6 +15,7 @@ A collection of methods to be used as `underscore` mixins
   * [_.percentage](#_percentage)
   * [_.stringifyQuery](#_stringifyquery)
   * [_.parseQuery](#_parsequery)
+  * [_.batchList](#_batchlist)
 * [Contributing](#contributing)
 * [Releasing](#releasing)
 * [License](#license)
@@ -80,6 +81,16 @@ Returns a key-value JSON object from a query string
 query = 'where=name%20%3D%20%22Foo%22&staged=true&limit=100&offset=2'
 _.parseQuery(query)
 # => {where: encodeURIComponent('name = "Foo"'), staged: 'true', limit: '100', offset: '2'}
+```
+
+### `_.batchList`
+Transform a given list in a new nested list of single list elements (batches) given max size.
+Useful if you need to process some elements on a list, but not all together.
+
+```coffeescript
+list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+_.batchList(list, 3)
+# => [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0]]
 ```
 
 ## Contributing

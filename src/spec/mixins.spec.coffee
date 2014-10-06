@@ -113,3 +113,12 @@ describe 'Mixins', ->
     it 'should return empty object if string is not defined', ->
       expect(_m.parseQuery()).toEqual {}
       expect(_m.parseQuery('')).toEqual {}
+
+  describe '_m :: batchList', ->
+
+    it 'should return batched list', ->
+      batched = _m.batchList [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], 3
+      expect(batched).toEqual [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0]]
+
+    it 'should throw if size is not defined', ->
+      expect(-> _m.batchList([])).toThrow new Error 'List batch size is required'
