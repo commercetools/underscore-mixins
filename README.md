@@ -80,7 +80,16 @@ Returns a key-value JSON object from a query string
 ```coffeescript
 query = 'where=name%20%3D%20%22Foo%22&staged=true&limit=100&offset=2'
 _.parseQuery(query)
-# => {where: encodeURIComponent('name = "Foo"'), staged: 'true', limit: '100', offset: '2'}
+# => {where: 'name%20%3D%20%22Foo%22', staged: 'true', limit: '100', offset: '2'}
+```
+
+You can pass a `hasUniqueParams` as second argument to determine the parsing strategy in case of multiple parameters with the same key:
+- `true` (default): same parameter key will be overridden
+- `false`: same parameters values will be put in an array
+
+```coffeescript
+query = 'foo=bar1&foo=bar2'
+# => {foo: ['bar1', 'bar2']}
 ```
 
 ### `_.batchList`

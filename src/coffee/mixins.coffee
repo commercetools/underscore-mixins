@@ -47,7 +47,7 @@ module.exports =
   stringifyQuery: (params) ->
     return "" unless params
     query = _.reduce params, (memo, value, key) ->
-      memo.push "#{key}=#{value}"
+      _.each _.flatten([value]), (v) -> memo.push "#{key}=#{v}"
       memo
     , []
     query.join("&")
@@ -55,16 +55,32 @@ module.exports =
   ###*
    * Returns a key-value JSON object from a query string
    * @param {String} query A query string
+   * @param {Boolean} hasUniqueParams Will determine the parsing strategy in case
+   *                                  of multiple parameters with the same key (default 'true')
+   *                                  - `true` (default): same parameter key will be overridden
+   *                                  - `false`: same parameters values will be put in an array
+   *                                  Example:
+   *                                    query = 'foo=bar1&foo=bar2'
+   *                                    # => {foo: ['bar1', 'bar2']}
    * @return {Object} A JSON object (note that all values are parsed as string)
   ###
-  parseQuery: (query) ->
+  parseQuery: (query, hasUniqueParams = true) ->
     return {} unless query
     _.reduce query.split('&'), (memo, param) ->
       splitted = param.split('=')
       return memo if _.size(splitted) < 2
+      # we always get the first splitted part as the key
       key = splitted[0]
-      value = splitted[1]
-      memo[key] = value
+      # the value is then just the param - key
+      value = param.replace("#{key}=", '')
+      # if key already exists
+      # - override it with new value
+      # - put values in an array, if explicitly asked
+      if _.has(memo, key) and not hasUniqueParams
+        currentValue = memo[key]
+        memo[key] = _.flatten([currentValue].concat(value))
+      else
+        memo[key] = value
       memo
     , {}
 

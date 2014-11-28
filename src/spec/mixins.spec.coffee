@@ -88,12 +88,21 @@ describe 'Mixins', ->
 
     it 'should parse string from object', ->
       query = _m.stringifyQuery
-        where: encodeURIComponent('name = "Foo"')
+        where: encodeURIComponent('name(en = "Foo")')
         staged: true
         limit: 100
         offset: 2
 
-      expect(query).toBe 'where=name%20%3D%20%22Foo%22&staged=true&limit=100&offset=2'
+      expect(query).toBe 'where=name(en%20%3D%20%22Foo%22)&staged=true&limit=100&offset=2'
+
+    it 'should parse string from object (with multiple params)', ->
+      query = _m.stringifyQuery
+        filter: ['variants.price.centAmount:100', 'variants.attributes.foo:bar']
+        staged: true
+        limit: 100
+        offset: 2
+
+      expect(query).toBe 'filter=variants.price.centAmount:100&filter=variants.attributes.foo:bar&staged=true&limit=100&offset=2'
 
     it 'should return empty string if object is not defined', ->
       expect(_m.stringifyQuery()).toBe ''
@@ -101,11 +110,35 @@ describe 'Mixins', ->
 
   describe '_m :: parseQuery', ->
 
-    it 'should parse object from string', ->
-      params = _m.parseQuery 'where=name%20%3D%20%22Foo%22&staged=true&limit=100&offset=2'
-
+    it 'should parse object from string (with encoded param)', ->
+      params = _m.parseQuery 'where=name(en%20%3D%20%22Foo%22)&staged=true&limit=100&offset=2'
       expect(params).toEqual
-        where: encodeURIComponent('name = "Foo"')
+        where: encodeURIComponent('name(en = "Foo")')
+        staged: 'true'
+        limit: '100'
+        offset: '2'
+
+    it 'should parse object from string (with no encoded param)', ->
+      params = _m.parseQuery 'where=not (name = "Peter" and age < 42)&staged=true&limit=100&offset=2'
+      expect(params).toEqual
+        where: 'not (name = "Peter" and age < 42)'
+        staged: 'true'
+        limit: '100'
+        offset: '2'
+
+    it 'should parse object from string with multiple same params (unique)', ->
+      params = _m.parseQuery 'filter=variants.price.centAmount:100&filter=variants.attributes.foo:bar&staged=true&limit=100&offset=2'
+      expect(params).toEqual
+        filter: 'variants.attributes.foo:bar'
+        staged: 'true'
+        limit: '100'
+        offset: '2'
+
+    it 'should parse object from string with multiple same params (not unique)', ->
+      params = _m.parseQuery 'filter=variants.price.centAmount:100&filter=variants.attributes.foo:bar&staged=true&limit=100&offset=2'
+      , false
+      expect(params).toEqual
+        filter: ['variants.price.centAmount:100', 'variants.attributes.foo:bar']
         staged: 'true'
         limit: '100'
         offset: '2'
