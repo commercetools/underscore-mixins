@@ -29,8 +29,8 @@
     "build": "grunt build",
     "test": "grunt coverage"
   },
-  "dependencies": {
-    "underscore": "1.7.x"
+  "peerDependencies": {
+    "underscore": ">= 1.7.0"
   },
   "devDependencies": {
     "coveralls": "2.10.0",
