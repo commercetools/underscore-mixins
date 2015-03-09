@@ -1,7 +1,7 @@
 {
   "name": "underscore-mixins",
   "description": "A collection of methods to be used as underscore mixins",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/sphereio/underscore-mixins",
   "private": false,
   "author": {
