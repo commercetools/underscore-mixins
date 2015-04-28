@@ -104,7 +104,7 @@ module.exports =
     for i in [0...list.length]
       mod = i % size
       if mod == 0
-        batch.push([])
         group++
+        batch[group] = []
       batch[group][mod] = list[i]
     batch
