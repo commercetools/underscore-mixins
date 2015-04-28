@@ -99,12 +99,8 @@ module.exports =
   ###
   batchList: (list, size) ->
     throw new Error 'List batch size is required' unless size
-    batch = []
-    group = -1
-    for i in [0...list.length]
-      mod = i % size
-      if mod == 0
-        group++
-        batch[group] = []
-      batch[group][mod] = list[i]
-    batch
+    list.reduce (batch, value, index) ->
+      if index % size == 0 then batch.push []
+      batch[batch.length - 1].push value
+      batch
+    , []
