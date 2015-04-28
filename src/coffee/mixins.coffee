@@ -99,9 +99,12 @@ module.exports =
   ###
   batchList: (list, size) ->
     throw new Error 'List batch size is required' unless size
-    _batch = (tickList, acc = []) ->
-      return acc if _.isEmpty tickList
-      acc.push _.head tickList, size
-      tail = _.tail tickList, size
-      _batch tail, acc
-    _batch(list)
+    batch = []
+    group = -1
+    for i in [0...list.length]
+      mod = i % size
+      if mod == 0
+        batch.push([])
+        group++
+      batch[group][mod] = list[i]
+    batch
