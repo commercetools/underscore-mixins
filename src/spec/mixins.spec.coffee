@@ -153,5 +153,9 @@ describe 'Mixins', ->
       batched = _m.batchList [1, 2, 3, 4, 5, 6, 7, 8, 9, 0], 3
       expect(batched).toEqual [[1, 2, 3], [4, 5, 6], [7, 8, 9], [0]]
 
+    it 'should return batched list for big data (no memory leak)', ->
+      batched = _m.batchList _.map([1..130000], (i) => {id: i}), 30
+      expected(_.size(batched)).toBe(Math.ceil(130000 / 30))
+
     it 'should throw if size is not defined', ->
       expect(-> _m.batchList([])).toThrow new Error 'List batch size is required'
