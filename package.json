@@ -46,8 +46,8 @@
     "istanbul": "0.2.7",
     "jasmine-node": "1.13.1",
     "sphere-coffeelint": "sphereio/sphere-coffeelint.git#master",
-    "underscore": "1.8.x",
-    "underscore.string": "2.3.3"
+    "underscore": "1.9.1",
+    "underscore.string": "3.3.5"
   },
   "keywords": []
 }
