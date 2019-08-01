@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "coveralls": "3.0.4",
-    "grunt": "0.4.4",
+    "grunt": "1.0.4",
     "grunt-bump": "0.0.13",
     "grunt-cli": "^0.1.13",
     "grunt-coffeelint": "0.0.8",
