@@ -44,7 +44,7 @@
     "grunt-contrib-watch": "0.6.1",
     "grunt-shell": "0.7.0",
     "istanbul": "0.2.7",
-    "jasmine-node": "1.13.1",
+    "jasmine-node": "3.0.0",
     "sphere-coffeelint": "sphereio/sphere-coffeelint.git#master",
     "underscore": "1.9.1",
     "underscore.string": "3.3.5"
